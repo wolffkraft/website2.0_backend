@@ -1,7 +1,7 @@
 const router = require('express').Router()
 let Casestudy = require('../models/casestudy.model')
 
-router.route('/').get((req, res) => {
+router.route('').get((req, res) => {
   Casestudy.find()
     .then(casestudies => {
       res.status(200).json({
