@@ -5,17 +5,19 @@ router.route('').get((req, res) => {
   Casestudy.find()
     .then(casestudies => {
       res.status(200).json({
-      results: casestudies
+      results: casestudies,
+      total: casestudies.length
     })
   })
   .catch(err => res.status(400).json('Error: ' + err)); 
 })
 
-router.route('/add').post((req,res) => {
+router.route('').post((req,res) => {
   const title = req.body.title;
   const domainType = req.body.domainType;
   const domainName = req.body.domainName;
-  const imageURL = req.body.imageURL;
+  const previewImageURL = req.body.previewImageURL;
+  const detailPageImageURL = req.body.detailPageImageURL;
   const read_time = req.body.read_time;
   const subtitle = req.body.subtitle;
   const featured = req.body.featured;
@@ -24,12 +26,14 @@ router.route('/add').post((req,res) => {
   const project = req.body.project;
   const platform = req.body.platform;
   const content = req.body.content;
+  const audio = req.body.audio;
 
   const newCasestudy = new Casestudy({
     title,
     domainType,
     domainName,
-    imageURL,
+    previewImageURL,
+    detailPageImageURL,
     read_time,
     subtitle,
     featured,
@@ -37,7 +41,8 @@ router.route('/add').post((req,res) => {
     client,
     project,
     platform,
-    content
+    content,
+    audio
   })
   newCasestudy.save()
    .then(() => res.json('Casestudy added!'))
@@ -46,28 +51,3 @@ router.route('/add').post((req,res) => {
 
 
 module.exports = router
-
-
-
-
-// module.exports = app => {
-//     const casestudy = require("../controllers/casestudy.controller.js");
-  
-//     // Create a new casestudy
-//     // app.post("/casestudy", customers.create);
-  
-//     // Retrieve all Customers
-//     app.get("/casestudy", casestudy.findAll);
-  
-//     // // Retrieve a single Customer with customerId
-//     // app.get("/casestudy/:customerId", customers.findOne);
-  
-//     // // Update a Customer with customerId
-//     // app.put("/customers/:customerId", customers.update);
-  
-//     // // Delete a Customer with customerId
-//     // app.delete("/customers/:customerId", customers.delete);
-  
-//     // // Create a new Customer
-//     // app.delete("/customers", customers.deleteAll);
-//   };
