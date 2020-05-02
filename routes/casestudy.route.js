@@ -10,22 +10,24 @@ router.route('').get((req, res) => {
         let galleryImages = [];
         if(casestudy.previewImageURL){          
           galleryImages.push({
-            _id: galleryImages.length,
+            _id: galleryImages.length.toString(),
             name: 'Casestudy Preview Image',
             imageURL: casestudy.previewImageURL
           })
         }
         if(casestudy.detailPageImageURL){
           galleryImages.push({
-            _id: galleryImages.length,
+            _id: galleryImages.length.toString(),
             name: 'Casestudy Image',
             imageURL: casestudy.detailPageImageURL
           })
         }
         if(casestudy.content){
+
           _.forEach(casestudy.content, (item) => {
-            if(item.mediaList){
-              _.concat(galleryImages,item.mediaList)
+            console.log('Here',  _.concat(galleryImages,item.mediaList))
+            if(item.mediaList && item.mediaList.length >0){
+              galleryImages = _.concat(galleryImages,item.mediaList)
             }
           })
         }
