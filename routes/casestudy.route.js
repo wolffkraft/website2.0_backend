@@ -82,8 +82,35 @@ router.route('').post((req,res) => {
 router.route('/:id').get((req, res) => {
   Casestudy.findById(req.params.id)
     .then(casestudy => {
+        let newCasestudy = JSON.parse(JSON.stringify(casestudy))
+        let galleryImages = [];
+        if(casestudy.previewImageURL){          
+          galleryImages.push({
+            _id: galleryImages.length.toString(),
+            name: 'Casestudy Preview Image',
+            imageURL: casestudy.previewImageURL
+          })
+        }
+        if(casestudy.detailPageImageURL){
+          galleryImages.push({
+            _id: galleryImages.length.toString(),
+            name: 'Casestudy Image',
+            imageURL: casestudy.detailPageImageURL
+          })
+        }
+        if(casestudy.content){
+
+          _.forEach(casestudy.content, (item) => {
+            // console.log('Here',  _.concat(galleryImages,item.mediaList))
+            if(item.mediaList && item.mediaList.length >0){
+              galleryImages = _.concat(galleryImages,item.mediaList)
+            }
+          })
+        }
+        newCasestudy["galleryImages"] = galleryImages
+       
       res.status(200).json({
-        data: casestudy
+        data: newCasestudy
       })
   })
   .catch(err => res.status(400).json('Error: ' + err)); 
