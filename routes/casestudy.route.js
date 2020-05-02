@@ -25,7 +25,7 @@ router.route('').get((req, res) => {
         if(casestudy.content){
 
           _.forEach(casestudy.content, (item) => {
-            console.log('Here',  _.concat(galleryImages,item.mediaList))
+            // console.log('Here',  _.concat(galleryImages,item.mediaList))
             if(item.mediaList && item.mediaList.length >0){
               galleryImages = _.concat(galleryImages,item.mediaList)
             }
@@ -79,5 +79,34 @@ router.route('').post((req,res) => {
    .catch(err => res.status(400).json('Error: '+ err))
 })
 
+router.route('/:id').get((req, res) => {
+  Casestudy.findById(req.params.id)
+    .then(casestudy => {
+      res.status(200).json({
+        data: casestudy
+      })
+  })
+  .catch(err => res.status(400).json('Error: ' + err)); 
+})
+router.route('/:id').delete((req, res) => {
+  Casestudy.findByIdAndDelete(req.params.id)
+    .then(casestudies => {
+      res.status(200).json('Casestudy deleted!')
+  })
+  .catch(err => res.status(400).json('Error: ' + err)); 
+})
+router.route("/:id").post(function(req, res) {
+  Casestudy.findByIdAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    function(err, result) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.status(200).json('Casestudy updated!')
+      }
+    }
+  );
+});
 
 module.exports = router
