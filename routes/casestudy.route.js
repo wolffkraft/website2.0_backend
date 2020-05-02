@@ -10,14 +10,14 @@ router.route('').get((req, res) => {
         let galleryImages = [];
         if(casestudy.previewImageURL){          
           galleryImages.push({
-            id: galleryImages.length,
+            _id: galleryImages.length,
             name: 'Casestudy Preview Image',
             imageURL: casestudy.previewImageURL
           })
         }
         if(casestudy.detailPageImageURL){
           galleryImages.push({
-            id: galleryImages.length,
+            _id: galleryImages.length,
             name: 'Casestudy Image',
             imageURL: casestudy.detailPageImageURL
           })
@@ -30,10 +30,8 @@ router.route('').get((req, res) => {
           })
         }
         newCasestudy["galleryImages"] = galleryImages
-        console.log('casestudy.previewImageURL', newCasestudy["galleryImages"])
         return newCasestudy
       })
-      // console.log('newCasestudies', newCasestudies)
       res.status(200).json({
       results: casestudies,
       total: casestudies.length
