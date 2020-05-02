@@ -26,8 +26,10 @@ connection.once('open', () => {
 // });
 
 const casestudyRouter = require("./routes/casestudy.route.js");
+const blogRouter = require("./routes/blog.route.js");
 
 app.use('/casestudy', casestudyRouter)
+app.use('/blog', blogRouter)
 // set port, listen for requests
 app.listen(port, () => {
   console.log(`Server is running on port ${port}.`);
