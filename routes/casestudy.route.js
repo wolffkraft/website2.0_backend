@@ -1,9 +1,39 @@
+const _ = require('lodash')
 const router = require('express').Router()
 let Casestudy = require('../models/casestudy.model')
 
 router.route('').get((req, res) => {
   Casestudy.find()
     .then(casestudies => {
+      casestudies = _.map(casestudies, (casestudy) =>{
+        let newCasestudy = JSON.parse(JSON.stringify(casestudy))
+        let galleryImages = [];
+        if(casestudy.previewImageURL){          
+          galleryImages.push({
+            id: galleryImages.length,
+            name: 'Casestudy Preview Image',
+            imageURL: casestudy.previewImageURL
+          })
+        }
+        if(casestudy.detailPageImageURL){
+          galleryImages.push({
+            id: galleryImages.length,
+            name: 'Casestudy Image',
+            imageURL: casestudy.detailPageImageURL
+          })
+        }
+        if(casestudy.content){
+          _.forEach(casestudy.content, (item) => {
+            if(item.mediaList){
+              _.concat(galleryImages,item.mediaList)
+            }
+          })
+        }
+        newCasestudy["galleryImages"] = galleryImages
+        console.log('casestudy.previewImageURL', newCasestudy["galleryImages"])
+        return newCasestudy
+      })
+      // console.log('newCasestudies', newCasestudies)
       res.status(200).json({
       results: casestudies,
       total: casestudies.length
