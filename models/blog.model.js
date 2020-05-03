@@ -7,6 +7,8 @@ const blogSchema = new Schema({
   previewImageURL:{type: String, required: true},
   detailPageImageURL:{type: String, required: true},
   subtitle:{type: String},
+  redirectText: String,
+  read_time: String,
   content:[{
     type:{type: String, required: true},
     title: String,

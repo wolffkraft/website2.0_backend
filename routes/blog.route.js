@@ -49,6 +49,8 @@ router.route('').post((req,res) => {
   const detailPageImageURL = req.body.detailPageImageURL;
   const subtitle = req.body.subtitle;
   const content = req.body.content;
+  const redirectText = req.body.redirectText;
+  const read_time = req.body.read_time;
 
   const newBlog = new Blog({
     title,
@@ -56,6 +58,8 @@ router.route('').post((req,res) => {
     previewImageURL,
     detailPageImageURL,
     subtitle,
+    redirectText,
+    read_time,
     content
   })
   newBlog.save()
