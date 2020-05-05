@@ -57,6 +57,7 @@ router.route('').post((req,res) => {
   const platform = req.body.platform;
   const content = req.body.content;
   const audio = req.body.audio;
+  const redirectText = req.body.redirectText;
 
   const newCasestudy = new Casestudy({
     title,
@@ -72,7 +73,8 @@ router.route('').post((req,res) => {
     project,
     platform,
     content,
-    audio
+    audio,
+    redirectText
   })
   newCasestudy.save()
    .then(() => res.json('Casestudy added!'))

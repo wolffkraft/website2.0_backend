@@ -14,6 +14,7 @@ const casestudySchema = new Schema({
   client:{type: String,  required: true},
   project:{type: String, required: true},
   platform:{type: String, required: true},
+  redirectText: String,
   audio: [{
     srcURL: String,
     title: String,
