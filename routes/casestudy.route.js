@@ -42,6 +42,20 @@ router.route('').get((req, res) => {
   .catch(err => res.status(400).json('Error: ' + err)); 
 })
 
+router.route('/ids').get((req, res) => {
+  console.log('Request', req.query)
+  Casestudy.find({}, {"_id": 1})
+    .then(casestudies => {
+      let ids = _.map(casestudies, (casestudy) => {
+        return casestudy._id
+      })
+      res.status(200).json({
+        results: ids
+      })
+  })
+  .catch(err => res.status(400).json('Error: ' + err)); 
+})
+
 router.route('').post((req,res) => {
   const title = req.body.title;
   const domainType = req.body.domainType;
@@ -117,6 +131,20 @@ router.route('/:id').get((req, res) => {
   })
   .catch(err => res.status(400).json('Error: ' + err)); 
 })
+
+// router.route('').get((req, res) => {
+//   Casestudy.find()
+//     .then(casestudies => {
+     
+//       res.status(200).json({
+//         results: casestudies,
+//         total: casestudies.length
+//       })
+//   })
+//   .catch(err => res.status(400).json('Error: ' + err)); 
+// })
+
+
 router.route('/:id').delete((req, res) => {
   Casestudy.findByIdAndDelete(req.params.id)
     .then(casestudies => {
@@ -124,6 +152,8 @@ router.route('/:id').delete((req, res) => {
   })
   .catch(err => res.status(400).json('Error: ' + err)); 
 })
+
+
 router.route("/:id").post(function(req, res) {
   Casestudy.findByIdAndUpdate(
     { _id: req.params.id },
