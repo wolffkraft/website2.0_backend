@@ -9,6 +9,7 @@ const blogSchema = new Schema({
   subtitle:{type: String},
   redirectText: String,
   read_time: String,
+  featured: Boolean,
   content:[{
     type:{type: String, required: true},
     title: String,

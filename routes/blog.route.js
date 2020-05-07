@@ -51,6 +51,7 @@ router.route('').post((req,res) => {
   const content = req.body.content;
   const redirectText = req.body.redirectText;
   const read_time = req.body.read_time;
+  const featured = req.body.featured;
 
   const newBlog = new Blog({
     title,
@@ -60,6 +61,7 @@ router.route('').post((req,res) => {
     subtitle,
     redirectText,
     read_time,
+    featured,
     content
   })
   newBlog.save()
