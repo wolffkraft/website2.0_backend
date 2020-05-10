@@ -132,12 +132,25 @@ router.route("/:id").post(function(req, res) {
 
 router.post('/:id/act', (req, res, next) => {
   const action = req.body.action;
-  // const counter = action === 'like' ? 1 : -1;
+
+  // const counter
+  // const counter = req.body.action ? 1 : -1;
   let params
   if(action === 'like'){
-    params = {$inc: {likes_count: 1}}
-  } else{
-    params = {$inc: {dislikes_count: 1}}
+
+    if(req.body.counter === "1"){
+      params = {$inc: {likes_count: 1}}
+    } else if(req.body.counter === "-1"){
+      params = {$inc: {likes_count: -1}}
+    }
+    
+  } else if(action === 'dislike'){
+    if(req.body.counter === "1"){
+      params = {$inc: {dislikes_count: 1}}
+    } else if(req.body.counter === "-1"){
+      params = {$inc: {dislikes_count: -1}}
+    }
+    // params = {$inc: {dislikes_count: parseInt(req.body.counter)}}
   }
   Blog.findByIdAndUpdate({_id: req.params.id}, params, {}, (err, numberAffected) => {
       res.send('Updated');
