@@ -52,6 +52,8 @@ router.route('').post((req,res) => {
   const redirectText = req.body.redirectText;
   const read_time = req.body.read_time;
   const featured = req.body.featured;
+  const dislikes_count = 0;
+  const likes_count = 0;
 
   const newBlog = new Blog({
     title,
@@ -62,6 +64,8 @@ router.route('').post((req,res) => {
     redirectText,
     read_time,
     featured,
+    likes_count,
+    dislikes_count,
     content
   })
   newBlog.save()
@@ -124,6 +128,20 @@ router.route("/:id").post(function(req, res) {
       }
     }
   );
+});
+
+router.post('/:id/act', (req, res, next) => {
+  const action = req.body.action;
+  // const counter = action === 'like' ? 1 : -1;
+  let params
+  if(action === 'like'){
+    params = {$inc: {likes_count: 1}}
+  } else{
+    params = {$inc: {dislikes_count: 1}}
+  }
+  Blog.findByIdAndUpdate({_id: req.params.id}, params, {}, (err, numberAffected) => {
+      res.send('Updated');
+  });
 });
 
 module.exports = router

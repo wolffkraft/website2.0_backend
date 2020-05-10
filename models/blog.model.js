@@ -10,6 +10,8 @@ const blogSchema = new Schema({
   redirectText: String,
   read_time: String,
   featured: Boolean,
+  likes_count: Number,
+  dislikes_count: Number,
   content:[{
     type:{type: String, required: true},
     title: String,
