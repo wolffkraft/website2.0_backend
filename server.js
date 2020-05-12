@@ -8,7 +8,7 @@ require('dotenv').config()
 
 // parse requests of content-type: application/json
 app.use(express.json());
-
+app.use(cors())
 // parse requests of content-type: application/x-www-form-urlencoded
 // app.use(bodyParser.urlencoded({ extended: true }));
 
