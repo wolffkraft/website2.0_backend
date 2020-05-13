@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema;
 const blogSchema = new Schema({
+  blogId: {type: Number, required: true},
   title:{type: String, required: true},
   blogType:{type: String, required: true},
   previewImageURL:{type: String, required: true},

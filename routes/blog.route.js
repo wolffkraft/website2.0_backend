@@ -43,6 +43,7 @@ router.route('').get((req, res) => {
 })
 
 router.route('').post((req,res) => {
+  const blogId = req.body.blogId;
   const title = req.body.title;
   const blogType = req.body.blogType;
   const previewImageURL = req.body.previewImageURL;
@@ -56,6 +57,7 @@ router.route('').post((req,res) => {
   const likes_count = 0;
 
   const newBlog = new Blog({
+    blogId,
     title,
     blogType,
     previewImageURL,
@@ -74,7 +76,8 @@ router.route('').post((req,res) => {
 })
 
 router.route('/:id').get((req, res) => {
-  Blog.findById(req.params.id)
+  Blog.find({ "blogId": req.params.id })
+  // Blog.findById(req.params.id)
     .then(blog => {
         let newBlog = JSON.parse(JSON.stringify(blog))
         let galleryImages = [];
