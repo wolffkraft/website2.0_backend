@@ -43,8 +43,8 @@ router.route('').get((req, res) => {
 })
 
 router.route('/ids').get((req, res) => {
-  // console.log('Request', req.query)
-  Casestudy.find({}, {"_id": 1})
+  console.log('Request', req.query)
+  Casestudy.find({}, {"casestudyId": 1})
     .then(casestudies => {
       let ids = _.map(casestudies, (casestudy) => {
         return casestudy.casestudyId
