@@ -57,6 +57,7 @@ router.route('/ids').get((req, res) => {
 })
 
 router.route('').post((req,res) => {
+  const casestudyId = req.body.casestudyId;
   const title = req.body.title;
   const domainType = req.body.domainType;
   const domainName = req.body.domainName;
@@ -74,6 +75,7 @@ router.route('').post((req,res) => {
   const redirectText = req.body.redirectText;
 
   const newCasestudy = new Casestudy({
+    casestudyId,
     title,
     domainType,
     domainName,
@@ -96,7 +98,8 @@ router.route('').post((req,res) => {
 })
 
 router.route('/:id').get((req, res) => {
-  Casestudy.findById(req.params.id)
+  Casestudy.find({ "casestudyId": req.params.id })
+  // Casestudy.findById(req.params.id)
     .then(casestudy => {
         let newCasestudy = JSON.parse(JSON.stringify(casestudy))
         let galleryImages = [];

@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema;
 const casestudySchema = new Schema({
+  casestudyId: {type: Number, required: true},
   title:{type: String, required: true},
   domainType:{type: String, required: true},
   domainName:{type: String, required: true},
