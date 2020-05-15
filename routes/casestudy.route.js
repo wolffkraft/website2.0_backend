@@ -55,6 +55,18 @@ router.route('/ids').get((req, res) => {
   })
   .catch(err => res.status(400).json('Error: ' + err)); 
 })
+router.route('/titles').get((req, res) => {
+  Casestudy.find({}, {"casestudyId": 1, "title": 1})
+    .then(casestudies => {
+      // let ids = _.map(casestudies, (casestudy) => {
+      //   return casestudy.casestudyId
+      // })
+      res.status(200).json({
+        results: casestudies
+      })
+  })
+  .catch(err => res.status(400).json('Error: ' + err)); 
+})
 
 router.route('').post((req,res) => {
   const casestudyId = req.body.casestudyId;
