@@ -113,33 +113,31 @@ router.route('/:id').get((req, res) => {
   Casestudy.find({ "casestudyId": req.params.id })
   // Casestudy.findById(req.params.id)
     .then(casestudy => {
-        let newCasestudy = JSON.parse(JSON.stringify(casestudy))
+        let newCasestudy = JSON.parse(JSON.stringify(casestudy[0]))
         let galleryImages = [];
-        if(casestudy.previewImageURL){          
+        if(casestudy[0].previewImageURL){          
           galleryImages.push({
             _id: galleryImages.length.toString(),
             name: 'Casestudy Preview Image',
-            imageURL: casestudy.previewImageURL
+            imageURL: casestudy[0].previewImageURL
           })
         }
-        if(casestudy.detailPageImageURL){
+        if(casestudy[0].detailPageImageURL){
           galleryImages.push({
             _id: galleryImages.length.toString(),
             name: 'Casestudy Image',
-            imageURL: casestudy.detailPageImageURL
+            imageURL: casestudy[0].detailPageImageURL
           })
         }
-        if(casestudy.content){
+        if(casestudy[0].content){
 
-          _.forEach(casestudy.content, (item) => {
-            // console.log('Here',  _.concat(galleryImages,item.mediaList))
+          _.forEach(casestudy[0].content, (item) => {
             if(item.mediaList && item.mediaList.length >0){
               galleryImages = _.concat(galleryImages,item.mediaList)
             }
           })
         }
         newCasestudy["galleryImages"] = galleryImages
-       
       res.status(200).json({
         data: newCasestudy
       })
