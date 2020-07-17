@@ -15,12 +15,19 @@ const blogSchema = new Schema({
   dislikes_count: Number,
   content:[{
     type:{type: String, required: true},
-    title: String,
-    description: String,
-    gridType: String,
+    level: String,
+    value: String,
+    containerStyle: Object,
+    contentStyle: Object,
+    quoteStyle: String,
+    firstLetter: Boolean,
+    mediaType: String,
     mediaList: [{
       name: String,
       imageURL: String,
+      videoURL: String,
+      videoType: String,
+      srcSet: String,
       grid: String
     }]
   }]
