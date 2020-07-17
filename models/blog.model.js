@@ -19,7 +19,7 @@ const blogSchema = new Schema({
     value: String,
     containerStyle: Object,
     contentStyle: Object,
-    quoteStyle: String,
+    quoteStyle: Object,
     firstLetter: Boolean,
     mediaType: String,
     mediaList: [{
