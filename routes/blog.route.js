@@ -83,7 +83,7 @@ router.route('/:id').get((req, res) => {
     .then(blog => {
         
         let newBlog = JSON.parse(JSON.stringify(blog))
-        console.log("BLOG",newBlog);
+        // console.log("BLOG",newBlog);
         let galleryImages = [];
         
         if(blog[0].previewImageURL){          
@@ -100,9 +100,9 @@ router.route('/:id').get((req, res) => {
             imageURL: blog[0].detailPageImageURL
           })
         }
-        console.log("c",blog[0].content);
+        // console.log("c",blog[0].content);
         if(blog[0].content) {
-          console.log("blog content");
+          // console.log("blog content");
           _.forEach(blog[0].content, (item) => {
             // console.log('Here',  _.concat(galleryImages,item.mediaList))
             if(item.mediaList && item.mediaList.length >0){
