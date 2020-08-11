@@ -3,6 +3,7 @@ const router = require('express').Router()
 let Blog = require('../models/blog.model')
 
 router.route('').get((req, res) => {
+
     Blog.find()
     .then(blogs => {
       blogs = _.map(blogs, (blog) =>{
@@ -76,36 +77,41 @@ router.route('').post((req,res) => {
 })
 
 router.route('/:id').get((req, res) => {
+  
   Blog.find({ "blogId": req.params.id })
   // Blog.findById(req.params.id)
     .then(blog => {
+        
         let newBlog = JSON.parse(JSON.stringify(blog))
+        console.log("BLOG",newBlog);
         let galleryImages = [];
-        if(blog.previewImageURL){          
+        
+        if(blog[0].previewImageURL){          
           galleryImages.push({
             _id: galleryImages.length.toString(),
             name: 'Blog Preview Image',
-            imageURL: blog.previewImageURL
+            imageURL: blog[0].previewImageURL
           })
         }
-        if(blog.detailPageImageURL){
+        if(blog[0].detailPageImageURL){
           galleryImages.push({
             _id: galleryImages.length.toString(),
             name: 'Blog Image',
-            imageURL: blog.detailPageImageURL
+            imageURL: blog[0].detailPageImageURL
           })
         }
-        if(blog.content){
-
-          _.forEach(blog.content, (item) => {
+        console.log("c",blog[0].content);
+        if(blog[0].content) {
+          console.log("blog content");
+          _.forEach(blog[0].content, (item) => {
             // console.log('Here',  _.concat(galleryImages,item.mediaList))
             if(item.mediaList && item.mediaList.length >0){
               galleryImages = _.concat(galleryImages,item.mediaList)
             }
           })
         }
-        newBlog["galleryImages"] = galleryImages
-       
+        newBlog[0]["galleryImages"] = galleryImages
+        
       res.status(200).json({
         data: newBlog
       })
